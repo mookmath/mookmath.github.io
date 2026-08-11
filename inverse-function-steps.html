@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- แก้ 2 บรรทัดนี้ทุกครั้งที่ทำหน้าใหม่ -->
-<title>ไล่ทีละขั้น — คณิต ม.ปลาย ที่อธิบายด้วยตัวเลขจริง</title>
-<meta name="description" content="สอนคณิตศาสตร์ ม.ปลาย ฟังก์ชัน ฟังก์ชันประกอบ ฟังก์ชันผกผัน โดเมนเรนจ์ อธิบายทีละขั้นด้วยตัวเลขจริง ไม่ข้ามบรรทัด">
+<title>หาฟังก์ชันผกผัน 3 ขั้นตอน ทำตามได้ทุกข้อ</title>
+<meta name="description" content="วิธีหาฟังก์ชันผกผัน f⁻¹(x) แบบ 3 ขั้นตอน สลับ x กับ y แล้วจัดรูป พร้อมตัวอย่างเลขจริงและแบบฝึกหัดมีเฉลย">
 
 <!-- ============================================================
      ที่แปะโค้ด Google AdSense — พอสมัครผ่านแล้ว
@@ -147,47 +147,110 @@ footer a{color:var(--ink-soft)}
 </header>
 
 <main class="wrap">
-<section class="hero">
-  <p class="eyebrow">คณิต ม.ปลาย</p>
-  <h1>ไม่ข้ามบรรทัด<br><span class="mark">อธิบายด้วยตัวเลขจริง</span></h1>
-  <p class="lede">เว็บนี้ไม่บอกแค่ว่า &ldquo;คำตอบคือ&rdquo; แต่จะไล่ให้ดูทุกบรรทัดว่าเลขแต่ละตัวมาจากไหน แบบที่อ่านแล้วทำตามเองได้</p>
-</section>
+<article>
+<p class="eyebrow">ฟังก์ชัน &middot; บทที่ 02</p>
+<h1>หาฟังก์ชันผกผัน <span class="mark">3 ขั้นตอน</span></h1>
+
+<p class="answer">
+ฟังก์ชันผกผัน คือฟังก์ชันที่ทำงาน<strong>ย้อนกลับ</strong> ถ้า f พา 4 ไปเป็น 11 แล้ว f⁻¹ ก็พา 11 กลับมาเป็น 4
+วิธีหาใช้ 3 ขั้นเสมอ: <span class="mono">เปลี่ยน f(x) เป็น y &rarr; สลับ x กับ y &rarr; จัดรูปหา y</span>
+</p>
+
+<h2>ตัวอย่างที่ 1 — f(x) = 2x + 3</h2>
 
 <div class="steps">
-  <p class="q">ตัวอย่าง &mdash; หา (f&#8728;g)(x) เมื่อ f(x) = 2x + 1 และ g(x) = x&sup2; &minus; 3</p>
+  <p class="q">ไล่ทีละขั้น</p>
   <ol>
-    <li>(f&#8728;g)(x) = f( g(x) )</li>
-    <li>= f( x&sup2; &minus; 3 )</li>
-    <li>= 2( x&sup2; &minus; 3 ) + 1</li>
-    <li>= 2x&sup2; &minus; 6 + 1</li>
-    <li>= 2x&sup2; &minus; 5</li>
+    <li>y = 2x + 3</li>
+    <li>x = 2y + 3&nbsp;&nbsp;&larr; สลับ x กับ y</li>
+    <li>x &minus; 3 = 2y</li>
+    <li>y = (x &minus; 3) / 2</li>
+    <li>f&#8315;&#185;(x) = (x &minus; 3) / 2</li>
   </ol>
   <div class="check">
-    <b>ลองแทน x = 2 เช็ก:</b><br>
-    g(2) = 4 &minus; 3 = 1 &rarr; f(1) = 2(1) + 1 = 3<br>
-    สูตรที่ได้: 2(2)&sup2; &minus; 5 = 8 &minus; 5 = 3 &#10003; ตรงกัน
+    <b>เช็กด้วย x = 4:</b><br>
+    f(4) = 2(4) + 3 = 11<br>
+    f&#8315;&#185;(11) = (11 &minus; 3) / 2 = 8 / 2 = 4 &#10003; กลับมาที่เดิม
   </div>
 </div>
 
+<p>วิธีเช็กว่าทำถูกไหม ใช้ได้ทุกข้อ: เอาเลขอะไรก็ได้ใส่ f แล้วเอาคำตอบไปใส่ f⁻¹ ถ้าได้เลขเดิมกลับมา แปลว่าถูก</p>
+
 <div class="adslot">พื้นที่โฆษณา — ใส่โค้ด AdSense ตรงนี้ทีหลัง</div>
 
-<section class="section" id="articles">
-  <h2 class="section-title">บทความทั้งหมด</h2>
-  <p class="section-note">กำลังทยอยเขียน สัปดาห์ละ 1&ndash;2 เรื่อง</p>
-  <ul class="list">
-    <li><a href="/composite-function.html"><span class="num">01</span><span class="t">ฟังก์ชันประกอบคืออะไร เข้าใจใน 5 นาที<span class="d">พร้อมตัวอย่างเลข 3 ข้อ และจุดที่คนสลับ f กับ g บ่อย</span></span></a></li>
-    <li><a href="/inverse-function-steps.html"><span class="num">02</span><span class="t">หาฟังก์ชันผกผัน 3 ขั้นตอน<span class="d">สลับ x กับ y แล้วจัดรูป ทำไมต้องทำแบบนั้น</span></span></a></li>
-    <li><a href="/domain-range.html"><span class="num">03</span><span class="t">โดเมนกับเรนจ์ ต่างกันยังไง<span class="d">ดูจากกราฟและจากสูตร แบบไม่ต้องท่อง</span></span></a></li>
-    <li><a href="/fog-vs-gof.html"><span class="num">04</span><span class="t">ทำไม (f&#8728;g) ไม่เท่ากับ (g&#8728;f)<span class="d">พิสูจน์ด้วยตัวเลขจริง 2 บรรทัด</span></span></a></li>
-    <li><a href="/vertical-line-test.html"><span class="num">05</span><span class="t">เช็กว่าเป็นฟังก์ชันไหม ด้วยเส้นแนวตั้ง<span class="d">พร้อมตัวอย่างพาราโบลาและวงกลม</span></span></a></li>
-    <li class="soon"><a href="#"><span class="num">06</span><span class="t">กราฟฟังก์ชันเชิงเส้น อ่านความชันยังไง<span class="d">กำลังเขียน</span></span></a></li>
-  </ul>
-</section>
+<h2>ตัวอย่างที่ 2 — มีเศษส่วน</h2>
 
-<section class="section" id="about">
-  <h2 class="section-title">เกี่ยวกับเว็บนี้</h2>
-  <p>เขียนโดยนักเรียนที่เคยงงกับเรื่องพวกนี้มาก่อน เลยรู้ว่าตำราชอบข้ามบรรทัดตรงไหน ทุกบทความจะมีตัวเลขจริงประกอบเสมอ ไม่ใช้แค่ตัวแปร <a href="/about.html">อ่านเพิ่ม &rarr;</a></p>
-</section>
+<div class="steps">
+  <p class="q">f(x) = (x + 1) / 3</p>
+  <ol>
+    <li>y = (x + 1) / 3</li>
+    <li>x = (y + 1) / 3</li>
+    <li>3x = y + 1</li>
+    <li>y = 3x &minus; 1</li>
+    <li>f&#8315;&#185;(x) = 3x &minus; 1</li>
+  </ol>
+  <div class="check">
+    <b>เช็กด้วย x = 5:</b><br>
+    f(5) = (5 + 1) / 3 = 2<br>
+    f&#8315;&#185;(2) = 3(2) &minus; 1 = 5 &#10003;
+  </div>
+</div>
+
+<p>สังเกตว่า f หาร 3 ส่วน f⁻¹ คูณ 3 — ผกผันคือการทำย้อนกลับทุกอย่าง คูณกลายเป็นหาร บวกกลายเป็นลบ</p>
+
+<h2>จุดที่คนพลาดบ่อย</h2>
+
+<div class="warn">
+  <h3>f&#8315;&#185;(x) ไม่ใช่ 1 / f(x)</h3>
+  <p>เลข &minus;1 ข้างบนนี้ไม่ใช่เลขยกกำลัง มันเป็นแค่สัญลักษณ์ที่แปลว่า "ผกผัน"</p>
+  <p class="mono">
+  f(x) = 2x + 3<br>
+  f&#8315;&#185;(x) = (x &minus; 3) / 2 &nbsp;&#10003; ถูก<br>
+  1 / (2x + 3) &nbsp;&#10007; ผิด คนละเรื่องเลย
+  </p>
+</div>
+
+<div class="mine">
+<b>&#9998; จุดที่มุกต้องเขียนเอง</b><br>
+ลบกล่องนี้ทิ้ง แล้วเขียนแทนว่า ตอนแรกมุกงงตรงไหน จำได้ยังไงถึงเลิกงง
+แค่ 2–3 บรรทัดพอ ตรงนี้คือส่วนที่ทำให้เว็บผ่านการตรวจของ AdSense
+</div>
+
+<h2>ไม่ใช่ทุกฟังก์ชันจะมีผกผัน</h2>
+
+<p>ฟังก์ชันจะมีผกผันได้ ต้องเป็นแบบ <strong>หนึ่งต่อหนึ่ง</strong> คือ y แต่ละค่ามาจาก x ได้ค่าเดียว</p>
+
+<p class="mono">f(x) = x&sup2; &nbsp; ไม่มีผกผัน<br>
+เพราะ f(2) = 4 และ f(&minus;2) = 4<br>
+ถ้าถามว่า 4 กลับไปเป็นอะไร ตอบไม่ได้ว่า 2 หรือ &minus;2</p>
+
+<p>แต่ถ้าจำกัดโดเมนให้ x &ge; 0 ก็จะมีผกผันได้ คือ f⁻¹(x) = &radic;x</p>
+
+<h2>แบบฝึกหัด กดดูเฉลยได้</h2>
+
+<div class="drill">
+  <details>
+    <summary>ข้อ 1 — f(x) = x &minus; 7</summary>
+    <p class="sol">y = x &minus; 7 &rarr; x = y &minus; 7 &rarr; y = x + 7<br>
+    f&#8315;&#185;(x) = x + 7 &nbsp;&nbsp; [เช็ก x=10: f=3, f&#8315;&#185;(3)=10 &#10003;]</p>
+  </details>
+  <details>
+    <summary>ข้อ 2 — f(x) = 5x</summary>
+    <p class="sol">y = 5x &rarr; x = 5y &rarr; y = x / 5<br>
+    f&#8315;&#185;(x) = x / 5 &nbsp;&nbsp; [เช็ก x=3: f=15, f&#8315;&#185;(15)=3 &#10003;]</p>
+  </details>
+  <details>
+    <summary>ข้อ 3 — f(x) = 4x &minus; 1</summary>
+    <p class="sol">y = 4x &minus; 1 &rarr; x = 4y &minus; 1 &rarr; x + 1 = 4y &rarr; y = (x + 1) / 4<br>
+    f&#8315;&#185;(x) = (x + 1) / 4 &nbsp;&nbsp; [เช็ก x=2: f=7, f&#8315;&#185;(7)=8/4=2 &#10003;]</p>
+  </details>
+</div>
+
+<div class="next">
+  <h3>อ่านต่อ</h3>
+  <p><a href="/domain-range.html">โดเมนกับเรนจ์ ดูจากกราฟยังไง &rarr;</a></p>
+</div>
+</article>
 </main>
 
 <footer>

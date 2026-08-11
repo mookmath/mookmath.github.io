@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- แก้ 2 บรรทัดนี้ทุกครั้งที่ทำหน้าใหม่ -->
-<title>ไล่ทีละขั้น — คณิต ม.ปลาย ที่อธิบายด้วยตัวเลขจริง</title>
-<meta name="description" content="สอนคณิตศาสตร์ ม.ปลาย ฟังก์ชัน ฟังก์ชันประกอบ ฟังก์ชันผกผัน โดเมนเรนจ์ อธิบายทีละขั้นด้วยตัวเลขจริง ไม่ข้ามบรรทัด">
+<title>ทำไม (f∘g) ไม่เท่ากับ (g∘f) พิสูจน์ด้วยตัวเลข 2 บรรทัด</title>
+<meta name="description" content="ฟังก์ชันประกอบสลับที่ไม่ได้ ดูตัวอย่างเลขจริงที่ให้คำตอบต่างกัน และกรณีพิเศษที่สลับแล้วเท่ากันพอดี">
 
 <!-- ============================================================
      ที่แปะโค้ด Google AdSense — พอสมัครผ่านแล้ว
@@ -147,47 +147,108 @@ footer a{color:var(--ink-soft)}
 </header>
 
 <main class="wrap">
-<section class="hero">
-  <p class="eyebrow">คณิต ม.ปลาย</p>
-  <h1>ไม่ข้ามบรรทัด<br><span class="mark">อธิบายด้วยตัวเลขจริง</span></h1>
-  <p class="lede">เว็บนี้ไม่บอกแค่ว่า &ldquo;คำตอบคือ&rdquo; แต่จะไล่ให้ดูทุกบรรทัดว่าเลขแต่ละตัวมาจากไหน แบบที่อ่านแล้วทำตามเองได้</p>
-</section>
+<article>
+<p class="eyebrow">ฟังก์ชัน &middot; บทที่ 04</p>
+<h1>ทำไม (f&#8728;g) <span class="mark">ไม่เท่ากับ</span> (g&#8728;f)</h1>
+
+<p class="answer">
+เพราะฟังก์ชันประกอบคือการทำงาน<strong>ตามลำดับ</strong> สลับลำดับก็ได้ผลคนละอย่าง
+เหมือนใส่ถุงเท้าแล้วใส่รองเท้า ต่างจากใส่รองเท้าแล้วใส่ถุงเท้า
+</p>
+
+<h2>พิสูจน์ด้วยเลข 2 บรรทัด</h2>
+
+<p>ให้ <span class="mono">f(x) = x + 3</span> และ <span class="mono">g(x) = 2x</span></p>
 
 <div class="steps">
-  <p class="q">ตัวอย่าง &mdash; หา (f&#8728;g)(x) เมื่อ f(x) = 2x + 1 และ g(x) = x&sup2; &minus; 3</p>
+  <p class="q">ทำ g ก่อน แล้วค่อย f</p>
   <ol>
     <li>(f&#8728;g)(x) = f( g(x) )</li>
-    <li>= f( x&sup2; &minus; 3 )</li>
-    <li>= 2( x&sup2; &minus; 3 ) + 1</li>
-    <li>= 2x&sup2; &minus; 6 + 1</li>
-    <li>= 2x&sup2; &minus; 5</li>
+    <li>= f( 2x )</li>
+    <li>= 2x + 3</li>
+  </ol>
+</div>
+
+<div class="steps">
+  <p class="q">ทำ f ก่อน แล้วค่อย g</p>
+  <ol>
+    <li>(g&#8728;f)(x) = g( f(x) )</li>
+    <li>= g( x + 3 )</li>
+    <li>= 2( x + 3 ) = 2x + 6</li>
   </ol>
   <div class="check">
-    <b>ลองแทน x = 2 เช็ก:</b><br>
-    g(2) = 4 &minus; 3 = 1 &rarr; f(1) = 2(1) + 1 = 3<br>
-    สูตรที่ได้: 2(2)&sup2; &minus; 5 = 8 &minus; 5 = 3 &#10003; ตรงกัน
+    <b>แทน x = 1 เทียบกัน:</b><br>
+    (f&#8728;g)(1) = 2(1) + 3 = 5<br>
+    (g&#8728;f)(1) = 2(1) + 6 = 8<br>
+    ต่างกัน 3 ชัดเจน
   </div>
 </div>
 
+<p>เหตุผลง่ายๆ: กรณีแรก บวก 3 ทีหลัง เลข 3 เลยไม่โดนคูณ กรณีที่สอง บวก 3 ก่อน เลข 3 เลยโดนคูณ 2 ด้วย กลายเป็น 6</p>
+
 <div class="adslot">พื้นที่โฆษณา — ใส่โค้ด AdSense ตรงนี้ทีหลัง</div>
 
-<section class="section" id="articles">
-  <h2 class="section-title">บทความทั้งหมด</h2>
-  <p class="section-note">กำลังทยอยเขียน สัปดาห์ละ 1&ndash;2 เรื่อง</p>
-  <ul class="list">
-    <li><a href="/composite-function.html"><span class="num">01</span><span class="t">ฟังก์ชันประกอบคืออะไร เข้าใจใน 5 นาที<span class="d">พร้อมตัวอย่างเลข 3 ข้อ และจุดที่คนสลับ f กับ g บ่อย</span></span></a></li>
-    <li><a href="/inverse-function-steps.html"><span class="num">02</span><span class="t">หาฟังก์ชันผกผัน 3 ขั้นตอน<span class="d">สลับ x กับ y แล้วจัดรูป ทำไมต้องทำแบบนั้น</span></span></a></li>
-    <li><a href="/domain-range.html"><span class="num">03</span><span class="t">โดเมนกับเรนจ์ ต่างกันยังไง<span class="d">ดูจากกราฟและจากสูตร แบบไม่ต้องท่อง</span></span></a></li>
-    <li><a href="/fog-vs-gof.html"><span class="num">04</span><span class="t">ทำไม (f&#8728;g) ไม่เท่ากับ (g&#8728;f)<span class="d">พิสูจน์ด้วยตัวเลขจริง 2 บรรทัด</span></span></a></li>
-    <li><a href="/vertical-line-test.html"><span class="num">05</span><span class="t">เช็กว่าเป็นฟังก์ชันไหม ด้วยเส้นแนวตั้ง<span class="d">พร้อมตัวอย่างพาราโบลาและวงกลม</span></span></a></li>
-    <li class="soon"><a href="#"><span class="num">06</span><span class="t">กราฟฟังก์ชันเชิงเส้น อ่านความชันยังไง<span class="d">กำลังเขียน</span></span></a></li>
-  </ul>
-</section>
+<h2>แล้วมีกรณีที่เท่ากันไหม</h2>
 
-<section class="section" id="about">
-  <h2 class="section-title">เกี่ยวกับเว็บนี้</h2>
-  <p>เขียนโดยนักเรียนที่เคยงงกับเรื่องพวกนี้มาก่อน เลยรู้ว่าตำราชอบข้ามบรรทัดตรงไหน ทุกบทความจะมีตัวเลขจริงประกอบเสมอ ไม่ใช้แค่ตัวแปร <a href="/about.html">อ่านเพิ่ม &rarr;</a></p>
-</section>
+<p>มี แต่พิเศษมาก คือเมื่อ g เป็นฟังก์ชันผกผันของ f พอดี ตอนนั้นจะได้ x กลับมาทั้งสองทาง</p>
+
+<div class="steps">
+  <p class="q">f(x) = 2x + 1 และ f&#8315;&#185;(x) = (x &minus; 1) / 2</p>
+  <ol>
+    <li>(f&#8728;f&#8315;&#185;)(x) = f( (x &minus; 1)/2 )</li>
+    <li>= 2 &middot; (x &minus; 1)/2 + 1</li>
+    <li>= (x &minus; 1) + 1 = x</li>
+    <li>(f&#8315;&#185;&#8728;f)(x) = f&#8315;&#185;( 2x + 1 )</li>
+    <li>= (2x + 1 &minus; 1) / 2 = x</li>
+  </ol>
+  <div class="check">
+    <b>ได้ x เท่ากันทั้งสองทาง</b> &mdash; นี่คือวิธีพิสูจน์ว่าสองฟังก์ชันเป็นผกผันกันจริง
+  </div>
+</div>
+
+<h2>จุดที่คนพลาดบ่อย</h2>
+
+<div class="warn">
+  <h3>อ่านผิดทิศ</h3>
+  <p>สัญลักษณ์ <span class="mono">(f&#8728;g)</span> เขียน f ก่อน แต่ต้องทำ g ก่อน &mdash; ตรงข้ามกับที่ตาเห็น</p>
+  <p class="mono">(f&#8728;g)(x) = f( g(x) )<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#8593; อ่านจากขวาไปซ้าย</p>
+  <p>วิธีจำ: ตัวที่ติดกับ (x) มากที่สุด คือตัวที่ทำงานก่อน</p>
+</div>
+
+<div class="mine">
+<b>&#9998; จุดที่มุกต้องเขียนเอง</b><br>
+ลบกล่องนี้ทิ้ง แล้วเขียนแทนว่า ตอนแรกมุกงงตรงไหน จำได้ยังไงถึงเลิกงง
+แค่ 2–3 บรรทัดพอ ตรงนี้คือส่วนที่ทำให้เว็บผ่านการตรวจของ AdSense
+</div>
+
+<h2>แบบฝึกหัด กดดูเฉลยได้</h2>
+
+<div class="drill">
+  <details>
+    <summary>ข้อ 1 — f(x) = x &minus; 4 , g(x) = 3x หา (f&#8728;g)(x) และ (g&#8728;f)(x)</summary>
+    <p class="sol">(f&#8728;g)(x) = f(3x) = 3x &minus; 4<br>
+    (g&#8728;f)(x) = g(x &minus; 4) = 3(x &minus; 4) = 3x &minus; 12<br>
+    [เช็ก x=2: ได้ 2 กับ &minus;6 &mdash; ต่างกัน]</p>
+  </details>
+  <details>
+    <summary>ข้อ 2 — f(x) = x&sup2; , g(x) = x + 1 หา (f&#8728;g)(2)</summary>
+    <p class="sol">g(2) = 3 &rarr; f(3) = 9<br>
+    ลองสลับดู: f(2) = 4 &rarr; g(4) = 5 &mdash; ได้ 9 กับ 5 ต่างกัน</p>
+  </details>
+  <details>
+    <summary>ข้อ 3 — f(x) = 3x และ g(x) = x/3 เป็นผกผันกันหรือไม่</summary>
+    <p class="sol">(f&#8728;g)(x) = f(x/3) = 3 &middot; x/3 = x<br>
+    (g&#8728;f)(x) = g(3x) = 3x/3 = x<br>
+    ได้ x ทั้งคู่ &rarr; เป็นผกผันกัน &#10003;</p>
+  </details>
+</div>
+
+<div class="next">
+  <h3>อ่านต่อ</h3>
+  <p><a href="/vertical-line-test.html">เช็กว่าเป็นฟังก์ชันด้วยเส้นแนวตั้ง &rarr;</a></p>
+</div>
+</article>
 </main>
 
 <footer>
