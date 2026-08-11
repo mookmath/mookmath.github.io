@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ไล่ทีละขั้น — คณิต ม.ปลาย ที่อธิบายด้วยตัวเลขจริง</title>
+<meta name="description" content="สอนคณิตศาสตร์ ม.ปลาย ฟังก์ชัน ฟังก์ชันประกอบ ฟังก์ชันผกผัน อธิบายทีละขั้นด้วยตัวเลขจริง ไม่ข้ามบรรทัด">
+
+<!-- ============================================================
+     ตรงนี้คือที่แปะโค้ด Google AdSense (ยังไม่ต้องทำตอนนี้)
+     พอสมัคร AdSense ผ่านแล้ว เอาโค้ดที่ Google ให้มาวางแทนบรรทัดนี้
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ink:#14243A;
+  --ink-soft:#5A6B80;
+  --paper:#FAFAF6;
+  --grid:#DDE5EC;
+  --rule:#E4E7E0;
+  --hi:#FFE066;
+  --pen:#C1342B;
+  --max:44rem;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:28px 28px;
+  color:var(--ink);
+  font-family:"IBM Plex Sans Thai", sans-serif;
+  font-size:17px;
+  line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 1.4rem}
+
+/* ---------- หัวเว็บ ---------- */
+.topbar{
+  border-bottom:1px solid var(--rule);
+  background:rgba(250,250,246,.92);
+  backdrop-filter:blur(6px);
+  position:sticky;top:0;z-index:10;
+}
+.topbar .wrap{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:1rem;padding-top:1rem;padding-bottom:1rem;
+}
+.brand{
+  font-family:"Chakra Petch",sans-serif;
+  font-weight:700;font-size:1.15rem;letter-spacing:.01em;
+  text-decoration:none;color:var(--ink);
+}
+.brand span{color:var(--pen)}
+.topbar nav{display:flex;gap:1.1rem;font-size:.9rem}
+.topbar nav a{color:var(--ink-soft);text-decoration:none}
+.topbar nav a:hover{color:var(--ink);text-decoration:underline}
+
+/* ---------- ส่วนเปิด ---------- */
+.hero{padding:3.6rem 0 2.6rem}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-soft);margin-bottom:1rem;
+}
+.hero h1{
+  font-family:"Chakra Petch",sans-serif;
+  font-weight:700;font-size:clamp(2rem,6vw,2.9rem);
+  line-height:1.28;letter-spacing:-.01em;margin-bottom:1rem;
+}
+.mark{
+  background:linear-gradient(to bottom,transparent 58%,var(--hi) 58%,var(--hi) 94%,transparent 94%);
+  padding:0 .12em;
+}
+.lede{color:var(--ink-soft);max-width:32rem;font-size:1.05rem}
+
+/* ---------- กล่องไล่ขั้น (จุดเด่นของเว็บ) ---------- */
+.steps{
+  margin:2.4rem 0;
+  background:#fff;
+  border:1px solid var(--rule);
+  border-left:3px solid var(--ink);
+  border-radius:2px;
+  padding:1.6rem 1.4rem;
+  box-shadow:0 1px 0 rgba(20,36,58,.05);
+}
+.steps h3{
+  font-family:"IBM Plex Sans Thai",sans-serif;
+  font-size:.95rem;font-weight:600;margin-bottom:1.2rem;
+}
+.steps ol{list-style:none;counter-reset:s}
+.steps li{
+  counter-increment:s;
+  display:grid;grid-template-columns:1.9rem 1fr;
+  gap:.7rem;align-items:baseline;
+  padding:.42rem 0;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:.98rem;line-height:1.7;
+  opacity:0;transform:translateY(4px);
+  animation:rise .45s ease forwards;
+}
+.steps li::before{
+  content:counter(s);
+  font-size:.72rem;color:var(--ink-soft);
+  border:1px solid var(--rule);border-radius:50%;
+  width:1.35rem;height:1.35rem;
+  display:grid;place-items:center;
+}
+.steps li:nth-child(1){animation-delay:.05s}
+.steps li:nth-child(2){animation-delay:.18s}
+.steps li:nth-child(3){animation-delay:.31s}
+.steps li:nth-child(4){animation-delay:.44s}
+.steps li:nth-child(5){animation-delay:.57s}
+@keyframes rise{to{opacity:1;transform:none}}
+
+.check{
+  margin-top:1.1rem;padding-top:1rem;border-top:1px dashed var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.88rem;color:var(--ink-soft);
+}
+.check b{color:var(--pen);font-weight:600}
+
+/* ---------- รายการบทความ ---------- */
+.section{padding:2.6rem 0}
+.section-title{
+  font-family:"Chakra Petch",sans-serif;font-weight:600;
+  font-size:1.35rem;margin-bottom:.4rem;
+}
+.section-note{color:var(--ink-soft);font-size:.95rem;margin-bottom:1.8rem}
+
+.list{list-style:none;border-top:1px solid var(--rule)}
+.list li{border-bottom:1px solid var(--rule)}
+.list a{
+  display:grid;grid-template-columns:auto 1fr;gap:1rem;
+  align-items:baseline;padding:1.05rem .2rem;
+  text-decoration:none;color:var(--ink);
+}
+.list a:hover{background:#fff}
+.list .num{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:.78rem;color:var(--ink-soft);
+}
+.list .t{font-weight:500;line-height:1.55}
+.list .d{display:block;font-size:.88rem;color:var(--ink-soft);font-weight:400}
+
+/* ---------- ช่องโฆษณา ---------- */
+.adslot{
+  margin:2.4rem 0;padding:1.6rem;
+  border:1px dashed var(--rule);border-radius:2px;
+  text-align:center;color:var(--ink-soft);
+  font-family:"IBM Plex Mono",monospace;font-size:.8rem;
+}
+
+/* ---------- ท้ายเว็บ ---------- */
+footer{
+  border-top:1px solid var(--rule);margin-top:2rem;
+  padding:2.2rem 0 3rem;font-size:.88rem;color:var(--ink-soft);
+}
+footer nav{display:flex;flex-wrap:wrap;gap:1.2rem;margin-bottom:1rem}
+footer a{color:var(--ink-soft)}
+
+@media (prefers-reduced-motion:reduce){
+  .steps li{animation:none;opacity:1;transform:none}
+}
+@media (max-width:480px){
+  body{font-size:16px}
+  .steps{padding:1.2rem 1rem}
+  .steps li{font-size:.9rem;grid-template-columns:1.6rem 1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="/">ไล่ทีละ<span>ขั้น</span></a>
+    <nav>
+      <a href="#articles">บทความ</a>
+      <a href="#about">เกี่ยวกับ</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <p class="eyebrow">คณิต ม.ปลาย</p>
+    <h1>ไม่ข้ามบรรทัด<br><span class="mark">อธิบายด้วยตัวเลขจริง</span></h1>
+    <p class="lede">เว็บนี้ไม่บอกแค่ว่า “คำตอบคือ” แต่จะไล่ให้ดูทุกบรรทัดว่าเลขแต่ละตัวมาจากไหน แบบที่อ่านแล้วทำตามเองได้</p>
+  </section>
+
+  <div class="steps">
+    <h3>ตัวอย่าง — หา (f∘g)(x) เมื่อ f(x) = 2x + 1 และ g(x) = x² − 3</h3>
+    <ol>
+      <li>(f∘g)(x) = f( g(x) )</li>
+      <li>= f( x² − 3 )</li>
+      <li>= 2( x² − 3 ) + 1</li>
+      <li>= 2x² − 6 + 1</li>
+      <li>= 2x² − 5</li>
+    </ol>
+    <div class="check">
+      <b>ลองแทน x = 2 เช็ก:</b><br>
+      g(2) = 4 − 3 = 1 → f(1) = 2(1) + 1 = 3<br>
+      สูตรที่ได้: 2(2)² − 5 = 8 − 5 = 3 ✓ ตรงกัน
+    </div>
+  </div>
+
+  <div class="adslot">พื้นที่โฆษณา — ใส่โค้ด AdSense ตรงนี้ทีหลัง</div>
+
+  <section class="section" id="articles">
+    <h2 class="section-title">บทความทั้งหมด</h2>
+    <p class="section-note">กำลังทยอยเขียน สัปดาห์ละ 1–2 เรื่อง</p>
+    <ul class="list">
+      <li><a href="#"><span class="num">01</span><span class="t">ฟังก์ชันประกอบคืออะไร เข้าใจใน 5 นาที<span class="d">พร้อมตัวอย่างเลข 4 ข้อ และจุดที่คนสลับ f กับ g บ่อย</span></span></a></li>
+      <li><a href="#"><span class="num">02</span><span class="t">หาฟังก์ชันผกผัน 3 ขั้นตอน<span class="d">สลับ x กับ y แล้วจัดรูป ทำไมต้องทำแบบนั้น</span></span></a></li>
+      <li><a href="#"><span class="num">03</span><span class="t">โดเมนกับเรนจ์ ดูจากกราฟยังไง<span class="d">แยกให้ชัดว่าอันไหนแกน x อันไหนแกน y</span></span></a></li>
+      <li><a href="#"><span class="num">04</span><span class="t">ทำไม (f∘g) ไม่เท่ากับ (g∘f)<span class="d">พิสูจน์ด้วยตัวเลขจริง 2 บรรทัด</span></span></a></li>
+      <li><a href="#"><span class="num">05</span><span class="t">เช็กว่าเป็นฟังก์ชันหรือไม่ ด้วยเส้นแนวตั้ง<span class="d">พร้อมกราฟที่ผ่านและไม่ผ่าน</span></span></a></li>
+    </ul>
+  </section>
+
+  <section class="section" id="about">
+    <h2 class="section-title">เกี่ยวกับเว็บนี้</h2>
+    <p>เขียนโดยนักเรียนที่เคยงงกับเรื่องพวกนี้มาก่อน เลยรู้ว่าตำราชอบข้ามบรรทัดตรงไหน ทุกบทความจะมีตัวเลขจริงประกอบเสมอ ไม่ใช้แค่ตัวแปร</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <nav>
+      <a href="/about.html">เกี่ยวกับเรา</a>
+      <a href="/contact.html">ติดต่อ</a>
+      <a href="/privacy.html">นโยบายความเป็นส่วนตัว</a>
+    </nav>
+    <p>© 2026 ไล่ทีละขั้น</p>
+  </div>
+</footer>
+
+</body>
+</html>
