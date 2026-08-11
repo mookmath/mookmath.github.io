@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- แก้ 2 บรรทัดนี้ทุกครั้งที่เขียนบทความใหม่ -->
+<title>ฟังก์ชันประกอบคืออะไร อธิบายทีละขั้นด้วยตัวเลขจริง</title>
+<meta name="description" content="ฟังก์ชันประกอบ (f∘g)(x) คืออะไร อ่านยังไง หาคำตอบยังไง พร้อมตัวอย่างเลข 3 ข้อ และจุดที่คนสลับ f กับ g บ่อย">
+
+<!-- ============================================================
+     ที่แปะโค้ด Google AdSense (ยังไม่ต้องทำตอนนี้)
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ink:#14243A; --ink-soft:#5A6B80; --paper:#FAFAF6;
+  --grid:#DDE5EC; --rule:#E4E7E0; --hi:#FFE066; --pen:#C1342B;
+  --max:44rem;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:28px 28px;
+  color:var(--ink);
+  font-family:"IBM Plex Sans Thai",sans-serif;
+  font-size:17px; line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 1.4rem}
+
+.topbar{border-bottom:1px solid var(--rule);background:rgba(250,250,246,.92);
+  backdrop-filter:blur(6px);position:sticky;top:0;z-index:10}
+.topbar .wrap{display:flex;align-items:baseline;justify-content:space-between;
+  gap:1rem;padding-top:1rem;padding-bottom:1rem}
+.brand{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.15rem;
+  text-decoration:none;color:var(--ink)}
+.brand span{color:var(--pen)}
+.topbar nav{display:flex;gap:1.1rem;font-size:.9rem}
+.topbar nav a{color:var(--ink-soft);text-decoration:none}
+.topbar nav a:hover{color:var(--ink);text-decoration:underline}
+
+article{padding:2.8rem 0 1rem}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.78rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.9rem}
+article h1{font-family:"Chakra Petch",sans-serif;font-weight:700;
+  font-size:clamp(1.8rem,5.4vw,2.5rem);line-height:1.3;margin-bottom:1.1rem}
+.mark{background:linear-gradient(to bottom,transparent 58%,var(--hi) 58%,var(--hi) 94%,transparent 94%);
+  padding:0 .12em}
+.answer{font-size:1.06rem;border-left:3px solid var(--hi);padding-left:1rem;margin-bottom:2.4rem}
+
+article h2{font-family:"Chakra Petch",sans-serif;font-weight:600;
+  font-size:1.3rem;margin:2.6rem 0 .9rem;padding-top:.4rem}
+article h3{font-size:1rem;font-weight:600;margin:1.6rem 0 .6rem}
+article p{margin-bottom:1rem}
+article ul{margin:0 0 1rem 1.2rem}
+article li{margin-bottom:.35rem}
+
+.steps{margin:1.4rem 0 1.8rem;background:#fff;border:1px solid var(--rule);
+  border-left:3px solid var(--ink);border-radius:2px;padding:1.5rem 1.3rem;
+  box-shadow:0 1px 0 rgba(20,36,58,.05)}
+.steps .q{font-size:.95rem;font-weight:600;margin-bottom:1.1rem}
+.steps ol{list-style:none;counter-reset:s;margin:0}
+.steps li{counter-increment:s;display:grid;grid-template-columns:1.9rem 1fr;
+  gap:.7rem;align-items:baseline;padding:.4rem 0;margin:0;
+  font-family:"IBM Plex Mono",monospace;font-size:.97rem;line-height:1.7}
+.steps li::before{content:counter(s);font-size:.72rem;color:var(--ink-soft);
+  border:1px solid var(--rule);border-radius:50%;width:1.35rem;height:1.35rem;
+  display:grid;place-items:center}
+.check{margin-top:1rem;padding-top:.9rem;border-top:1px dashed var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.87rem;color:var(--ink-soft)}
+.check b{color:var(--pen);font-weight:600}
+
+.warn{background:#fff;border:1px solid var(--rule);border-left:3px solid var(--pen);
+  border-radius:2px;padding:1.2rem 1.3rem;margin:1.6rem 0}
+.warn h3{margin:0 0 .5rem;color:var(--pen)}
+.warn p:last-child{margin-bottom:0}
+.mono{font-family:"IBM Plex Mono",monospace;font-size:.95rem}
+
+.drill{border-top:1px solid var(--rule);margin-top:1rem}
+.drill details{border-bottom:1px solid var(--rule);padding:.9rem .2rem}
+.drill summary{cursor:pointer;font-family:"IBM Plex Mono",monospace;font-size:.95rem;
+  list-style:none}
+.drill summary::-webkit-details-marker{display:none}
+.drill summary::before{content:"▸ ";color:var(--ink-soft)}
+.drill details[open] summary::before{content:"▾ "}
+.drill .sol{font-family:"IBM Plex Mono",monospace;font-size:.92rem;
+  color:var(--ink-soft);padding:.7rem 0 .2rem 1.1rem}
+
+.adslot{margin:2.4rem 0;padding:1.6rem;border:1px dashed var(--rule);border-radius:2px;
+  text-align:center;color:var(--ink-soft);font-family:"IBM Plex Mono",monospace;font-size:.8rem}
+
+.next{margin:2.4rem 0 1rem;padding:1.3rem;background:#fff;border:1px solid var(--rule);border-radius:2px}
+.next h3{margin:0 0 .6rem}
+.next a{color:var(--ink)}
+
+footer{border-top:1px solid var(--rule);margin-top:2rem;padding:2.2rem 0 3rem;
+  font-size:.88rem;color:var(--ink-soft)}
+footer nav{display:flex;flex-wrap:wrap;gap:1.2rem;margin-bottom:1rem}
+footer a{color:var(--ink-soft)}
+
+@media (max-width:480px){
+  body{font-size:16px}
+  .steps{padding:1.2rem 1rem}
+  .steps li{font-size:.89rem;grid-template-columns:1.6rem 1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="/">ไล่ทีละ<span>ขั้น</span></a>
+    <nav>
+      <a href="/#articles">บทความ</a>
+      <a href="/#about">เกี่ยวกับ</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+<article>
+
+  <p class="eyebrow">ฟังก์ชัน · บทที่ 01</p>
+  <h1>ฟังก์ชันประกอบคืออะไร <span class="mark">อธิบายด้วยตัวเลขจริง</span></h1>
+
+  <!-- ตอบคำถามใน 2 บรรทัดแรก -->
+  <p class="answer">
+    ฟังก์ชันประกอบ คือการเอาคำตอบของฟังก์ชันหนึ่ง ไปเป็นข้อมูลเข้าของอีกฟังก์ชันหนึ่ง
+    เขียนว่า <span class="mono">(f∘g)(x) = f( g(x) )</span> อ่านจาก<strong>ขวาไปซ้าย</strong> คือทำ g ก่อน แล้วค่อยเอาผลไปใส่ f
+  </p>
+
+  <h2>เข้าใจด้วยเลขก่อน ยังไม่ต้องมีตัวแปร</h2>
+
+  <p>ให้ <span class="mono">f(x) = 3x</span> และ <span class="mono">g(x) = x + 2</span> แล้วหา <span class="mono">(f∘g)(1)</span></p>
+
+  <div class="steps">
+    <p class="q">แทน x = 1 ทีละขั้น</p>
+    <ol>
+      <li>(f∘g)(1) = f( g(1) )</li>
+      <li>g(1) = 1 + 2 = 3</li>
+      <li>= f(3)</li>
+      <li>= 3 × 3 = 9</li>
+    </ol>
+  </div>
+
+  <p>เห็นไหมว่า g ทำงานก่อน ได้ 3 แล้ว 3 ตัวนี้ถึงเดินเข้าไปหา f ต่อ</p>
+
+  <h2>ทีนี้ทำแบบเป็นสูตร</h2>
+
+  <div class="steps">
+    <p class="q">หา (f∘g)(x) เมื่อ f(x) = 3x และ g(x) = x + 2</p>
+    <ol>
+      <li>(f∘g)(x) = f( g(x) )</li>
+      <li>= f( x + 2 )</li>
+      <li>= 3( x + 2 )</li>
+      <li>= 3x + 6</li>
+    </ol>
+    <div class="check">
+      <b>เช็กด้วย x = 1:</b> 3(1) + 6 = 9 ✓ ตรงกับที่คำนวณข้างบน
+    </div>
+  </div>
+
+  <p><strong>เคล็ดลับ:</strong> ขั้นที่ 2 คือหัวใจ ให้เอา g(x) ทั้งก้อน ไปแทนตรงที่ f มีตัว x อยู่ ถ้า f มี x หลายที่ ก็แทนทุกที่</p>
+
+  <div class="adslot">พื้นที่โฆษณา — ใส่โค้ด AdSense ตรงนี้ทีหลัง</div>
+
+  <h2>จุดที่คนพลาดบ่อยที่สุด</h2>
+
+  <div class="warn">
+    <h3>(f∘g) กับ (g∘f) ไม่เท่ากัน</h3>
+    <p>ใช้ f และ g ชุดเดิม แต่สลับลำดับ ผลต่างกันทันที</p>
+    <p class="mono">
+      (f∘g)(x) = f(x + 2) = 3(x + 2) = 3x + 6<br>
+      (g∘f)(x) = g(3x) = 3x + 2
+    </p>
+    <p class="mono">แทน x = 1: ได้ 9 กับ 5 — คนละคำตอบเลย</p>
+  </div>
+
+  <h2>ตัวอย่างที่ยากขึ้น มีกำลังสอง</h2>
+
+  <div class="steps">
+    <p class="q">f(x) = 2x + 1 , g(x) = x² − 3 หา (f∘g)(x)</p>
+    <ol>
+      <li>(f∘g)(x) = f( x² − 3 )</li>
+      <li>= 2( x² − 3 ) + 1</li>
+      <li>= 2x² − 6 + 1</li>
+      <li>= 2x² − 5</li>
+    </ol>
+    <div class="check">
+      <b>เช็กด้วย x = 2:</b><br>
+      g(2) = 4 − 3 = 1 → f(1) = 2(1) + 1 = 3<br>
+      สูตร: 2(2)² − 5 = 8 − 5 = 3 ✓
+    </div>
+  </div>
+
+  <h2>แบบฝึกหัด กดดูเฉลยได้</h2>
+
+  <div class="drill">
+    <details>
+      <summary>ข้อ 1 — f(x) = x + 5 , g(x) = 2x หา (f∘g)(x)</summary>
+      <p class="sol">f( 2x ) = 2x + 5 &nbsp;&nbsp; [เช็ก x=3: g=6, f(6)=11 ✓]</p>
+    </details>
+    <details>
+      <summary>ข้อ 2 — f(x) = x² , g(x) = x − 1 หา (f∘g)(x)</summary>
+      <p class="sol">f( x − 1 ) = (x − 1)² = x² − 2x + 1 &nbsp;&nbsp; [เช็ก x=4: g=3, f(3)=9 ✓]</p>
+    </details>
+    <details>
+      <summary>ข้อ 3 — f(x) = 2x − 1 , g(x) = x² + 3 หา (g∘f)(x)</summary>
+      <p class="sol">ระวัง ข้อนี้สลับลำดับ<br>
+      g( 2x − 1 ) = (2x − 1)² + 3 = 4x² − 4x + 4 &nbsp;&nbsp; [เช็ก x=1: f(1)=1, g(1)=4 ✓]</p>
+    </details>
+  </div>
+
+  <div class="next">
+    <h3>อ่านต่อ</h3>
+    <p><a href="/inverse-function-steps.html">หาฟังก์ชันผกผัน 3 ขั้นตอน →</a></p>
+  </div>
+
+</article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <nav>
+      <a href="/about.html">เกี่ยวกับเรา</a>
+      <a href="/contact.html">ติดต่อ</a>
+      <a href="/privacy.html">นโยบายความเป็นส่วนตัว</a>
+    </nav>
+    <p>© 2026 ไล่ทีละขั้น</p>
+  </div>
+</footer>
+
+</body>
+</html>
